@@ -29,6 +29,9 @@ AudioControlSGTL5000     sgtl5000_1;
 
 AUDIO_FREEZE_INTERFACE   audio_freeze_interface;
 
+int selected_input = AUDIO_INPUT_MIC;
+
+
 //////////////////////////////////////
 
 void setup()
@@ -40,10 +43,13 @@ void setup()
   AudioMemory(8);
   
   sgtl5000_1.enable();
-  sgtl5000_1.volume(0.8f);
+  sgtl5000_1.volume(5);
 
-  sgtl5000_1.lineInLevel( 10 );  // 0.56volts p-p
-  sgtl5000_1.lineOutLevel( 13 );  // 3.16volts p-p
+  //sgtl5000_1.lineInLevel( 10 );  // 0.56volts p-p
+  sgtl5000_1.inputSelect(selected_input);
+  //sgtl5000_1.lineOutLevel( 13 );  // 3.16volts p-p
+    sgtl5000_1.micGain(1);
+
   
   SPI.setMOSI(7);
   SPI.setSCK(14);
@@ -87,7 +93,24 @@ void loop()
   {
     audio_freeze_effect.set_reverse( false );
   }
-
+  
+  if( audio_freeze_interface.select_input_button().single_click() ) {
+    Serial.println("change input");
+    if (selected_input == AUDIO_INPUT_LINEIN) {
+      selected_input = AUDIO_INPUT_MIC;
+      Serial.println("Changing input to mic");  
+    } else {
+      
+      selected_input = AUDIO_INPUT_LINEIN;
+      Serial.println("Changing input to linein");
+    }
+    sgtl5000_1.disable();
+    sgtl5000_1.enable();
+    sgtl5000_1.inputSelect(selected_input);
+    sgtl5000_1.micGain(20);
+    sgtl5000_1.volume(5);
+    audio_freeze_interface.setup();
+  }
    // use the mix dial to control wow/flutter
   const float wow_flutter_amount = clamp( audio_freeze_interface.mix_dial().value(), 0.0f, 1.0f );
   const float max_wow( 1.0f );
@@ -109,7 +132,3 @@ void loop()
   }
 #endif
 }
-
-
-
-

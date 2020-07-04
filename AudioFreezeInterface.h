@@ -4,15 +4,16 @@
 
 class AUDIO_FREEZE_INTERFACE
 {
-  static const int      LENGTH_DIAL_PIN                 = 20;
-  static const int      POSITION_DIAL_PIN               = 17;
-  static const int      SPEED_DIAL_PIN                  = 21;
-  static const int      MIX_DIAL_PIN                    = 16;
-  static const int      FREEZE_BUTTON_PIN               = 2;
-  static const int      MODE_BUTTON_PIN                 = 1;
-  static const int      LED_1_PIN                       = 4;
-  static const int      LED_2_PIN                       = 3;
-  static const int      LED_3_PIN                       = 5;
+  static const int      LENGTH_DIAL_PIN                 = A0;
+  static const int      POSITION_DIAL_PIN               = A1;
+  static const int      SPEED_DIAL_PIN                  = A2;
+  static const int      MIX_DIAL_PIN                    = A3;
+  static const int      FREEZE_BUTTON_PIN               = 5;
+  static const int      MODE_BUTTON_PIN                 = 4;
+  static const int      SELECT_INPUT_BUTTON_PIN         = 0;
+  static const int      LED_1_PIN                       = 3;
+  static const int      LED_2_PIN                       = 2;
+  static const int      LED_3_PIN                       = 1;
 
   static const bool     FREEZE_BUTTON_IS_TOGGLE         = true;
   static const int      NUM_LEDS                        = 3;
@@ -27,6 +28,7 @@ class AUDIO_FREEZE_INTERFACE
 
   BUTTON            m_freeze_button;
   BUTTON            m_mode_button;
+  BUTTON            m_select_input_button;
   
   LED               m_leds[NUM_LEDS];
 
@@ -46,8 +48,8 @@ public:
   const DIAL&   speed_dial() const;
   const DIAL&   mix_dial() const;
   const BUTTON& freeze_button() const;
+  const BUTTON& select_input_button() const;
 
   int           mode() const;
   bool          alt_func() const;
 };
-

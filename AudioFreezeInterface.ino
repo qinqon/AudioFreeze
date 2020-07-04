@@ -8,6 +8,7 @@ AUDIO_FREEZE_INTERFACE::AUDIO_FREEZE_INTERFACE() :
   m_mix_dial( MIX_DIAL_PIN ),
   m_freeze_button( FREEZE_BUTTON_PIN, FREEZE_BUTTON_IS_TOGGLE ),
   m_mode_button( MODE_BUTTON_PIN, false ),
+  m_select_input_button( SELECT_INPUT_BUTTON_PIN, false ),
   m_leds(),
   m_current_mode( 0 ),
   m_change_alt_func_valid( true ),
@@ -22,6 +23,7 @@ void AUDIO_FREEZE_INTERFACE::setup()
 {
   m_freeze_button.setup();
   m_mode_button.setup();
+  m_select_input_button.setup();
 
   for( int x = 0; x < NUM_LEDS; ++x )
   {
@@ -41,6 +43,7 @@ void AUDIO_FREEZE_INTERFACE::update()
   
   m_freeze_button.update( time_in_ms );
   m_mode_button.update( time_in_ms );
+  m_select_input_button.update( time_in_ms );
 
   if( m_mode_button.down_time_ms() > ALT_FUNC_BUTTON_HOLD_TIME_MS && m_change_alt_func_valid )
   {
@@ -150,6 +153,11 @@ const BUTTON& AUDIO_FREEZE_INTERFACE::freeze_button() const
   return m_freeze_button;
 }
 
+const BUTTON& AUDIO_FREEZE_INTERFACE::select_input_button() const
+{
+  return m_select_input_button;
+}
+
 int AUDIO_FREEZE_INTERFACE::mode() const
 {
   return m_current_mode;
@@ -159,4 +167,3 @@ bool AUDIO_FREEZE_INTERFACE::alt_func() const
 {
   return m_alt_func;
 }
-

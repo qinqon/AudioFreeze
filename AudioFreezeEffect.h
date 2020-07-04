@@ -68,7 +68,7 @@ class AUDIO_FREEZE_EFFECT : public AudioStream
   float					        m_wow_amount;
   float					        m_flutter_amount;
   
-
+  int                   m_selected_input;
 
   int                   wrap_index_to_loop_section( int index ) const;
 
@@ -114,4 +114,3 @@ public:
   void					        set_flutter_frequency_range( float min_frequency, float max_frequency );
   void					        set_flutter_amount( float amount );
 };
-

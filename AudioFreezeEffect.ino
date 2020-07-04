@@ -832,4 +832,3 @@ void AUDIO_FREEZE_EFFECT::set_flutter_frequency_range( float min_frequency, floa
 {
 	m_flutter_lfo.set_frequency_range( min_frequency, max_frequency );
 }
-
